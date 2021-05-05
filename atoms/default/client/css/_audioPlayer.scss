@@ -1,0 +1,102 @@
+
+video {
+    border: 1px solid #aaa;
+    object-fit: initial;
+    // background: black;
+    display: none;
+ }
+ ::cue {
+    font-size: 1.3rem;
+    // font-family: "Guardian Text Sans Web";
+    color: black;
+    background: rgb(255, 255, 177);
+ }
+
+.audio-player {
+    position: relative;
+    padding: 1rem;
+    background-color: #f1f1f1;
+    align-items: flex-end;
+    justify-content: center;
+
+    .ap-container {
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+
+    }
+    
+    h1 {
+        display: flex;
+        justify-content: flex-start;
+        align-items: center;
+        align-content: center;
+        flex-direction: row;
+        text-align: left;
+        width: 90%;
+        margin: 0 0 .5rem;
+        padding: 0;
+        font-size: 1.25rem;
+        line-height: 1.5rem;
+    }
+    .AudioIcon {
+        width: 3rem;
+        border-radius: 100px;
+        margin-right: 2px;
+
+        @media screen and (min-width: map-get($mq-breakpoints, tablet) ) {
+            width: 2rem;
+        }
+    }
+    button {
+    
+        padding: 0;
+        margin: 0;
+        cursor: pointer;
+        border: none;
+        background-color: transparent;
+        outline: none;
+
+
+        &:hover, &.active {
+
+            svg {
+                fill: #69d1ca;
+
+            }
+        }
+    }
+
+    button.btn-play {
+        svg {
+            width: 4rem;
+            height: 4rem;
+        }
+
+        .progress {
+            transform-origin: 50%;
+            transform: rotate(-90deg);
+        }        
+    }
+    button.btn-subs {
+        width: 50px;
+        padding: 5px;
+    }    
+
+    .st1 {
+        fill: white;
+    }
+
+    .subs {
+        // min-height: 2rem;
+
+        text-align: center;
+        padding: 10px;
+        background: black;
+        color: yellow;
+
+    }
+
+    
+    
+}
