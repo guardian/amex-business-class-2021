@@ -29,7 +29,22 @@ body {
 
 }
 
-header {
+.ClientDetails {
+  display: flex;
+  color: white;
+  align-items: center;
+  max-width: 40rem;
+}
+.main-title {
+  margin-top: -5rem;
+  position: relative;
+  h1 {
+    max-width: 40rem;
+    margin: auto;
+  }
+}
+
+main header {
   overflow: hidden;
   .flex-container {
     height: 80vh;
@@ -112,4 +127,83 @@ section {
     #Glabs #Footer .InnerFooter .PartnerZoneLinks {
     flex-basis: 100%;
     }
+  }
+
+  
+  article {
+
+    // background-color: #34B1D5;
+    header {
+      position: relative;
+      margin: auto;
+      border: 1px solid #0003;
+      overflow: visible;
+      .feature {
+        margin: 1rem;
+        min-height: 80vmin;
+        background: url('<%= path %>/001.jpg') 50% no-repeat;
+        background-size: cover;
+        @include mq(desktop) {
+          background-attachment: fixed;
+          min-height: 45vmax;
+        }
+      }
+      .title {
+        color: #34B1D5;;
+        width: 100%;
+        margin-top: -2rem;
+        padding: 0 2rem;
+        display: flex;
+        @include mq(tablet) {
+          position: absolute;
+          bottom: -1rem;
+          padding: 0;
+        }
+        h1 {
+          
+          --shadow-color: white;
+          color: currentColor;
+          max-width: 50rem;
+          margin: auto;
+          font-size: 38/16 + rem;
+          @include mq(tablet) {
+            font-size: 48/16 + rem;
+
+          }
+          span {
+            color: currentColor;
+            font-family: "Guardian Headline Regular";
+            // line-height: 1.5;
+          }
+        }
+      }
+    }
+    .body {
+      margin: auto;
+      max-width: 680/16 + rem;
+      padding: 4rem 2rem;
+      color: white;
+    }
+    .stand-first {
+      color: black;
+    }
+
+    .cta {
+      max-width: 60rem;
+      color: black;
+    }
+
+  }
+
+  .break {
+    max-width: 90%;
+    margin: auto;
+    hr {
+      margin: 1px;
+    }
+  }
+
+  .social-share {
+    max-width: 90%;
+    margin: 2rem auto;
   }

@@ -109,7 +109,9 @@ const buildJS = () => {
             resolve: {
                 alias: {
                     "shared": path.resolve(__dirname, 'shared'),
-                    "data": path.resolve(__dirname, '../data')
+                    "data": path.resolve(__dirname, '../data'),
+                    react: 'preact/compat',
+                    'react-dom': 'preact/compat',                    
                 }
             }
         }, webpack))
