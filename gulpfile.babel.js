@@ -11,7 +11,8 @@ const sass = require("gulp-sass");
 const file = require("gulp-file");
 sass.compiler = require("node-sass");
 const browserSync = require("browser-sync");
-3
+const autoprefixer = require('autoprefixer')
+const postcss = require('gulp-postcss')
 const browser = browserSync.create();
 const cleanCSS = require('gulp-clean-css');
 const es = require('event-stream');
@@ -20,6 +21,7 @@ const config = require("./config.json")
 const path = require("path")
 const named = require("vinyl-named")
 const cdnUrl = 'https://interactive.guim.co.uk';
+const gdnUrl = 'https://gdn-cdn.s3.amazonaws.com';
 const webpack = require('webpack')
 const ws = require('webpack-stream')
 const TerserPlugin = require('terser-webpack-plugin')
@@ -39,6 +41,7 @@ const babelrc = JSON.parse(fs.readFileSync('.babelrc'));
 const presets = (babelrc.presets || []).concat(babelrc.env.client.presets);
 const plugins = (babelrc.plugins || []).concat(babelrc.env.client.plugins);
 
+const isWin = process.platform === 'win32';
 
 let webpackPlugins = [
     new webpack.LoaderOptionsPlugin({
@@ -111,7 +114,7 @@ const buildJS = () => {
                     "shared": path.resolve(__dirname, 'shared'),
                     "data": path.resolve(__dirname, '../data'),
                     react: 'preact/compat',
-                    'react-dom': 'preact/compat',                    
+                    'react-dom': 'preact/compat',  
                 }
             }
         }, webpack))
@@ -134,12 +137,13 @@ const buildCSS = () => {
             ]
         }).on("error", sass.logError))
         .pipe(rename((path) => {
-            path.dirname = path.dirname.replace(/client\\css/g, "");
+            path.dirname = path.dirname.replace( isWin ? /client\\css/g : /client\/css/g, "");
         }))
         .pipe(template({
             path: assetPath,
             atomPath: `<%= atomPath %>`
         }))
+        .pipe(postcss([autoprefixer()]))
         .pipe(isDeploy ? cleanCSS({ compatibility: 'ie8' }) : gutil.noop())
         .pipe(dest(".build"))
         .pipe(browser.stream({
@@ -236,6 +240,33 @@ const upload = () => {
     return mergeStream(uploadTasks)
 }
 
+/**
+ * Ensure correct AWS keys are set in ~/.bashrc
+ * Then use source ~/.bashrc to refresh keys in the current terminal window
+ * 
+ */
+
+const uploadStaging = () => {
+    console.log('Uploading build files to staging ...');
+    console.log(`\tPath: ${config.path}`);
+
+    // const assetPath = `${gdnUrl}embed/${config.path}/assets`;
+    const assetPath = '../assets';
+    const s3Path = `embed/${config.path}`;
+
+    return src(`.build/**/*`)
+        .pipe(replace('<%= path %>', assetPath))
+        .pipe(replace('&lt;%= path %&gt;', assetPath))
+        .pipe(replace('<%= atomPath %>', `${gdnUrl}/${s3Path}`))
+        .pipe(s3Upload('max-age=31536000', s3Path))
+        .on("end", () => {
+            console.log('External URLs:');
+            console.log(`\n\n S3\t- ${gdnUrl}/embed/${config.path}/default/immersive.html`);
+            console.log(`\n\n Fastly\t-${cdnUrl}/embed/${config.path}/default/immersive.html`);
+        })
+}
+
+
 const getAtoms = () => (fs.readdirSync(".build")).filter(n => n !== "assets" && n !== "index.html")
 
 const url = (cb) => {
@@ -273,6 +304,9 @@ const deploy = series(build, upload)
 exports.build = build;
 exports.deploylive = deploy;
 exports.deploypreview = deploy;
+
+exports['deploy-staging'] = series(uploadStaging);
+
 exports.log = getLogs;
 exports.url = url;
 exports.default = series(build, local, serve);
