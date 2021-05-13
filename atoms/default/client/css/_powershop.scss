@@ -41,6 +41,11 @@ body {
   h1 {
     max-width: 40rem;
     margin: auto;
+    span {
+      line-height: 1;
+      --shadow-color: black;
+      box-shadow: -20px 0px 0 6px var(--shadow-color), 20px 0px 0 6px var(--shadow-color), 0 0 0 2px var(--shadow-color);
+    }
   }
 }
 
@@ -70,6 +75,7 @@ main header {
   h1 {
     position: relative;
     color: white;
+
   }
 }
 
@@ -173,7 +179,7 @@ section {
           span {
             color: currentColor;
             font-family: "Guardian Headline Regular";
-            // line-height: 1.5;
+            line-height: 1.1;
           }
         }
       }
