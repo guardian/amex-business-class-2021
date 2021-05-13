@@ -56,6 +56,7 @@
     "babel-plugin-transform-import-bangtext-node": "^0.1.4",
     "gulp-replace": "^1.0.0",
     "mkdirp": "^0.5.1",
+    "postcss": "^8.2.14",
     "request-promise": "^4.2.5",
     "terser-webpack-plugin": "^4.2.2",
     "uglifyjs-webpack-plugin": "^2.2.0"
