@@ -210,7 +210,7 @@ const Amex = () => {
     
 
     const loading = (
-        <h1>Loaging...</h1>
+        <span></span>
     )
 
     // return dataLoaded ? loaded() : loading;
