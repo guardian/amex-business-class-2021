@@ -9,23 +9,40 @@ video {
     font-size: 1.3rem;
     // font-family: "Guardian Text Sans Web";
     color: black;
-    background: rgb(255, 255, 177);
+    background: #fcc242;
  }
 
 .audio-player {
     position: relative;
+    border: 1px solid;
+    border-radius: 70px;
     padding: 1rem;
-    background-color: #f1f1f1;
-    align-items: flex-end;
+    // padding: 45px 1rem 1rem;
+    // background-color: #f1f1f1;
+    // align-items: flex-end;
+    display: flex;
     justify-content: center;
 
-    .ap-container {
-        width: 100%;
-        display: flex;
-        justify-content: space-between;
+    @include mq($until: tablet) {
+        padding-bottom: 2rem;
+    }
 
+    .ap-container {
+        width: 90%;
+        @include mq(tablet) {
+            display: flex;
+        }
+        // justify-content: center
+        align-items: center;
     }
     
+    .title {
+        padding-left: 55px;
+        margin-bottom: -6px;
+        @include mq(tablet) {
+            padding-left: 5rem;
+        }
+    }
     h1 {
         display: flex;
         justify-content: flex-start;
@@ -33,7 +50,7 @@ video {
         align-content: center;
         flex-direction: row;
         text-align: left;
-        width: 90%;
+        // width: 90%;
         margin: 0 0 .5rem;
         padding: 0;
         font-size: 1.25rem;
@@ -56,21 +73,34 @@ video {
         border: none;
         background-color: transparent;
         outline: none;
-
+        
+        svg {
+            fill: #fff;
+            height: 40px;
+            width: 40px;
+        }
 
         &:hover, &.active {
 
             svg {
-                fill: #69d1ca;
+                fill: white;
 
+            }
+            .st1 {
+                fill: white;
             }
         }
     }
 
     button.btn-play {
         svg {
-            width: 4rem;
-            height: 4rem;
+            width: 70px;
+            height: 70px;
+
+            @include mq(tablet) {
+                width: 4rem;
+                height: 4rem;
+            }
         }
 
         .progress {
@@ -81,7 +111,13 @@ video {
     button.btn-subs {
         width: 50px;
         padding: 5px;
-    }    
+    }
+
+    .btn-skip {
+        width: 40px;
+        height: 40px;
+        fill: white;
+    }
 
     .st1 {
         fill: white;
@@ -92,9 +128,51 @@ video {
 
         text-align: center;
         padding: 10px;
-        background: black;
-        color: yellow;
+        color: white;
 
+    }
+
+    .controls {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .progress-bar {
+        margin-bottom: 1rem;
+        width: 100%;
+        position: relative;
+        @include mq(tablet) {
+            margin-left: 1rem;
+        }
+        // .title {
+        //     position: absolute;
+        //     top: -45px;
+        //     left: 0;
+        // }
+        .track {
+            cursor: pointer;
+            height: 8px;
+            background-color: rgba(255,255,255,.2);
+            width: 100%;
+            margin: auto;
+            .current {
+                background-color: white;
+                height: 100%;
+                transition: width 500ms ease;
+                will-change: width;
+            }
+        }
+        .time {
+            position: absolute;
+            width: 100%;
+            left: 0;
+            display: flex;
+            @include mq($until: tablet) {
+                font-size: 12px;
+
+            }
+        }
     }
 
     

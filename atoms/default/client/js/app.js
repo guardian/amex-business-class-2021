@@ -110,6 +110,11 @@ const Article = ({audio, bgColour, body, headerImage, heading}) => {
                 </h1>
             </div>
         </header>
+        { audio && 
+            <div className="audio">
+                <AudioPlayer src={`<%= path %>/audio/${audio}`} />
+            </div>
+        }
         <div className="body" dangerouslySetInnerHTML={{__html: body}}>
         </div>
 
