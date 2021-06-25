@@ -32,7 +32,7 @@ body {
 .ClientDetails {
   display: flex;
   color: white;
-  text-shadow: 1px 4px black;
+  text-shadow: 1px 1px 3px black;
   align-items: center;
   max-width: 40rem;
 }
@@ -43,7 +43,7 @@ body {
     max-width: 40rem;
     margin: auto;
     span {
-      line-height: 1;
+      line-height: 1.4;
       --shadow-color: black;
       box-shadow: -20px 0px 0 6px var(--shadow-color), 20px 0px 0 6px var(--shadow-color), 0 0 0 2px var(--shadow-color);
     }
@@ -191,6 +191,11 @@ section {
       max-width: 680/16 + rem;
       padding: 4rem 2rem;
       color: white;
+
+      a {
+        color: currentColor;
+        text-decoration: underline;
+      }
     }
 
     .audio {
